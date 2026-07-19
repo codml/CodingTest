@@ -3,12 +3,12 @@ import java.util.*;
 public class Solution {
     public int[] solution(int []arr) {
         int[] answer = {};
-        ArrayList<Integer> list = new ArrayList<>();
+        Stack <Integer> stack = new Stack <>();
         
-        for (int i = 0; i < arr.length; i++) {
-            if (i == 0 || arr[i] != arr[i-1])
-                list.add(arr[i]);
+        for (int n: arr) {
+            if (stack.isEmpty() || stack.peek() != n)
+                stack.push(n);
         }
-        return list.stream().mapToInt(i -> i).toArray();
+        return stack.stream().mapToInt(i -> i).toArray();
     }
 }
