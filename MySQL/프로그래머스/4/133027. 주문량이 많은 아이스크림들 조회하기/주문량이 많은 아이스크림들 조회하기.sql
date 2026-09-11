@@ -1,14 +1,21 @@
 -- 코드를 입력하세요
-SELECT FLAVOR
+SELECT
+    F.FLAVOR
 FROM
+    FIRST_HALF F
+        JOIN
     (
-        SELECT FLAVOR, F.TOTAL_ORDER + J.TOTAL_ORDER AS TOT
-        FROM FIRST_HALF F JOIN 
-            (
-                SELECT FLAVOR, SUM(TOTAL_ORDER) AS TOTAL_ORDER
-                FROM JULY
-                GROUP BY FLAVOR
-            ) J USING(FLAVOR)
-    ) T
-ORDER BY TOT DESC
-LIMIT 3
+    SELECT
+        FLAVOR,
+        SUM(TOTAL_ORDER) AS TOTAL_ORDER
+    FROM
+        JULY
+    GROUP BY
+        FLAVOR
+    ) J
+    ON (F.FLAVOR = J.FLAVOR)
+ORDER BY 
+    (F.TOTAL_ORDER + J.TOTAL_ORDER) DESC
+LIMIT
+    3
+    
